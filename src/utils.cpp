@@ -8,7 +8,11 @@ std::vector<char> strToVector(const std::string& s)
     return v;
 }
 
-void clearInputBuffer()
+void clear()
 {
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+#ifdef WINDOWS
+    std::system("cls");
+#else
+    std::system ("clear");
+#endif
 }

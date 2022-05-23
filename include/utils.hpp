@@ -7,8 +7,7 @@
 // Return a char vector from a string.
 std::vector<char> strToVector(const std::string& s);
 
-// Clear the input buffer. Causes a delay.
-void clearInputBuffer();
-
+// Clear terminal
+void clear();
 
 #endif
