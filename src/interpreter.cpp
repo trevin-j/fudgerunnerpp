@@ -84,7 +84,10 @@ void Interpreter::addInstructions(const std::string& instructions)
     code.reserve(code.size() + newCode.size());
 
     // Add the new instructions to the end of the code.
-    code.insert(newCode.end(), newCode.begin(), newCode.end());
+    for (int i = 0; i < newCode.size(); i++)
+    {
+        code.push_back(newCode[i]);
+    }
 }
 
 
@@ -94,6 +97,7 @@ int Interpreter::runBF()
     int status = bracketsMatch();
     if (!status == BF_OK)
     {
+        reset();
         return status;
     }
 
@@ -123,6 +127,7 @@ void Interpreter::reset()
     codePtr = 0;
     code.clear();
     cells.clear();
+    cells.push_back(0);
     while (!loopStack.empty())
     {
         loopStack.pop();
@@ -253,5 +258,5 @@ int Interpreter::processInstruction()
 
 void Interpreter::show()
 {
-    std::cout << "Cell #: " << cellPtr << "; Cell value: " + cells[cellPtr] << ';' << std::endl;
+    std::cout << "Cell #: " << cellPtr << "; Cell value: " << int(cells[cellPtr]) << ';' << std::endl;
 }
