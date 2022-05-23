@@ -15,3 +15,7 @@ add_executable(${PROJECT_NAME} ${SOURCES})
 
 # add include directory
 target_include_directories(${PROJECT_NAME} PRIVATE "include")
+
+# define the platform
+# if WINDOWS is not defined, the program will compile for unix systems
+add_definitions(-DWINDOWS)
