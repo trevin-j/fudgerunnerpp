@@ -1,4 +1,5 @@
-#pragma once
+#ifndef ARG_PARSER_HPP
+#define ARG_PARSER_HPP
 
 #include <string>
 #include <vector>
@@ -40,3 +41,5 @@ private:
 	std::vector <std::string> tokens;
 	const std::string emptyString;
 };
+
+#endif
