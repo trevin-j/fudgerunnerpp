@@ -11,9 +11,6 @@
 #include "bfcompiler.hpp"
 
 
-#define PUBLIC_REPO "https://github.com/trevin-j/fudgerunnerpp"
-
-
 // Display help information to the user
 int help()
 {
