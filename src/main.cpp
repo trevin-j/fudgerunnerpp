@@ -7,27 +7,36 @@
 #include "utils.hpp"
 #include "arg_parser.hpp"
 
-// Define version.
-#define FRPP_VERSION "0.2.0"
+#include "definitions.hpp"
+#include "bfcompiler.hpp"
+
+
+#define PUBLIC_REPO "https://github.com/trevin-j/fudgerunnerpp"
+
 
 // Display help information to the user
 int help()
 {
     std::cout
-            << "FudgeRunner++ - Brainfudge Interpreter, REPL, and Compiler" << std::endl
+            << "** FudgeRunner++ - Brainfudge Interpreter, REPL, and Compiler **" << std::endl
             << std::endl
             << "Usage:" << std::endl
             << "  fr++ [options]" << std::endl
             << std::endl
             << "Options:" << std::endl
-            << "  -h, --help       Display help menu." << std::endl
-            << "  -f <file>        Specify a file to interpret." << std::endl
-            << "  -r, --repl       Run the REPL. If no options" << std::endl
-            << "                   are passed, the REPL will run." << std::endl
-            // << "  -c <file> <out>  Compile a file to a binary" << std::endl
-            // << "                   file. The output file will be" << std::endl
-            // << "                   <out>." << std::endl
-            << "  -v, --version    Display version information." << std::endl
+            << "  -h, --help          Display help menu." << std::endl
+            << "  -f <file>           Specify a file to interpret." << std::endl
+            << "  -r, --repl          Run the REPL. If no options" << std::endl
+            << "                      are passed, the REPL will run." << std::endl
+            << "  -c <file> -o <out>  Compile a file to a binary" << std::endl
+            << "                      file. The output file will be" << std::endl
+            << "                      <out>." << std::endl
+            << "  -v, --version       Display version information." << std::endl
+            << "  -k                  Keep the comments from the BF code" << std::endl
+            << "                      in the intermediate C code." << std::endl
+            << std::endl
+            << "For more information, see the README file," << std::endl
+            << "or visit the public repo at\n" << PUBLIC_REPO << std::endl
             << std::endl;
 
         return 0;
@@ -37,8 +46,9 @@ int help()
 int version()
 {
     std::cout
-        << "FudgeRunner++ - Brainfudge Interpreter, REPL, and Compiler" << std::endl
-        << "Version: " << FRPP_VERSION << std::endl;
+        << "** FudgeRunner++ - Brainfudge Interpreter, REPL, and Compiler **" << std::endl
+        << "** Version: " << FRPP_VERSION << " **" << std::endl
+        << "\n** View the public repo at " << PUBLIC_REPO << " **" << std::endl;
     
     return 0;
 }
@@ -143,6 +153,30 @@ int runREPL()
 }
 
 
+int compile(const ArgParser& parser)
+{
+    // Get src file and build directory.
+    std::string srcFile = parser.getCmdOption("-c");
+    std::string buildDir = parser.getCmdOption("-o");
+
+    // Create compiler object
+    brainfudge::BFCompiler compiler;
+
+    // Initialize compiler
+    int initStatus = compiler.init(srcFile, buildDir);
+
+    // Check if compiler was initialized successfully
+    if (initStatus != BF_OK)
+    {
+        std::cout << "Error: Could not initialize compiler." << std::endl;
+        return 1;
+    }
+
+    // Compile the file
+    compiler.compile(parser.cmdOptionExists("-k"));
+
+    return BF_OK;
+}
 
 
 int main(int argc, char** argv)
@@ -171,6 +205,12 @@ int main(int argc, char** argv)
     if (parser.cmdOptionExists("-r") || parser.cmdOptionExists("--repl"))
     {
         return runREPL();
+    }
+
+    // If flag -c and -o are passed, compile the file.
+    if (parser.cmdOptionExists("-c") && parser.cmdOptionExists("-o"))
+    {
+        return compile(parser);
     }
 
     // If no flags are passed, run the REPL.
