@@ -142,6 +142,8 @@ int BFCompiler::compileToC(bool keepComments)
             isComment = false;
             ss << indentation(indentationLevel);
             ss << "*ptr = getch();";
+            // Force program to break if user uses ctrl+c
+            ss << "\n" << indentation(indentationLevel) << "if (*ptr == 3) { return 0; }";
             continue;
         }
         else if (code[i] == '[')
