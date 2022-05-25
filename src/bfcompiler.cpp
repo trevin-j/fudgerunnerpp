@@ -84,6 +84,7 @@ int BFCompiler::compileToC(bool keepComments)
         // Add includes.
         << "// Include necessary library headers.\n"
         << "#include <stdio.h>\n"
+        << "#include <conio.h>\n"
 
         // Initialize cell array.
         << '\n'
@@ -140,7 +141,7 @@ int BFCompiler::compileToC(bool keepComments)
         {
             isComment = false;
             ss << indentation(indentationLevel);
-            ss << "*ptr = getchar();";
+            ss << "*ptr = getch();";
             continue;
         }
         else if (code[i] == '[')
