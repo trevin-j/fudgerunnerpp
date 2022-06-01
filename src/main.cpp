@@ -31,6 +31,9 @@ int help()
             << "  -v, --version       Display version information." << std::endl
             << "  -k                  Keep the comments from the BF code" << std::endl
             << "                      in the intermediate C code." << std::endl
+            #ifdef WINDOWS
+            << "  --run               Run the binary after it has been compiled." << std::endl
+            #endif
             << std::endl
             << "For more information, see the README file," << std::endl
             << "or visit the public repo at\n" << PUBLIC_REPO << std::endl
@@ -171,6 +174,13 @@ int compile(const ArgParser& parser)
 
     // Compile the file
     compiler.compile(parser.cmdOptionExists("-k"));
+
+    // If the user wants to run the compiled file, run it
+    if (parser.cmdOptionExists("--run"))
+    {
+        std::cout << "Running compiled file..." << std::endl;
+        compiler.runCompiled();
+    }
 
     return BF_OK;
 }

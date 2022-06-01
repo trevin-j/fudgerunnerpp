@@ -14,7 +14,7 @@
 #define PRINT_TRACE 0
 
 // Define version.
-#define FRPP_VERSION "0.3.2"
+#define FRPP_VERSION "0.3.3"
 
 // Define public repository URL.
 #define PUBLIC_REPO "https://github.com/trevin-j/fudgerunnerpp"

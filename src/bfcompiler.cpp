@@ -299,3 +299,20 @@ int BFCompiler::init(const std::string& sourceFile, const std::string& buildDir)
     // Return success.
     return BF_OK;
 }
+
+
+#ifdef WINDOWS
+void BFCompiler::runCompiled()
+{
+    // Get the path to the compiled executable.
+    std::string outputPath = buildDir + projectName + ".exe";
+
+    // Command
+    std::string command = "start " + outputPath;
+
+    std::cout << "Running compiled executable: " << outputPath << std::endl;
+
+    // Run the compiled executable.
+    system(command.c_str());
+}
+#endif

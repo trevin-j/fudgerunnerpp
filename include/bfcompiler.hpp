@@ -62,6 +62,11 @@ namespace brainfudge
         // Initialize the BFCompiler. Must be called before compiling.
         // Returns a code indicating success or failure.
         int init(const std::string& sourceFile, const std::string& buildDir);
+
+        #ifdef WINDOWS
+        // Run the compiled BF code.
+        void runCompiled();
+        #endif
     };
 }
 
