@@ -22,7 +22,7 @@ Several additional features are currently in development, or planned:
 
 Currently, there are no releases, so you will need to manually compile FR++. To do so, use CMake to generate build files. Compile the project with your desired compiler. This project is untested on Linux and Mac, but should work anyways. The program should work well on Windows.
 
-NOTE: If you are planning on compiling for Linux or Mac, you will need to change the platform definition in CMakeLists.txtsda, or some functions of the program will not work as intended. However, most of the program will still work fine, even if you skip this step. This program is completely untested on Mac and Linux, so it may not work at all. Feel free to create an issue or pull request if you find any issues. I'll look them over.
+NOTE: If you are planning on compiling for Linux or Mac, you will need to change the platform definition in CMakeLists.txt, or some functions of the program will not work as intended. However, most of the program will still work fine, even if you skip this step. This program is completely untested on Mac and Linux, so it may not work at all. Feel free to create an issue or pull request if you find any issues. I'll look them over.
 
 Once compiled, you can run it in the command line using arguments. On windows, if you don't add the executable to the path, you will need to run it via `./fr++` in the same directory as the executable.
 
